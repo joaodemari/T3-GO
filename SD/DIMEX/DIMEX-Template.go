@@ -190,9 +190,12 @@ func (module *DIMEX_Module) handleUponDeliverReqEntry(msgOutro PP2PLink.PP2PLink
 	reqTs := module.reqTs
 	id := module.id
 	rts, rid := stringToReqTsAndId(msgOutro.Message)
+	module.outDbg("reqTs: " + strconv.Itoa(reqTs) + " id: " + strconv.Itoa(id) + " rts: " + strconv.Itoa(rts) + " rid: " + strconv.Itoa(rid))
 	if (module.st == noMX) || (module.st == wantMX && after(id, reqTs, rid, rts)) {
 		//	  then  gera evento [ pl, Send | q , [ respOk ]  ]
-		module.sendToLink(msgOutro.From, "respOK", strconv.Itoa(module.id))
+		rsAddress := module.processes[rid]
+		module.outDbg("         <<<---- responde OK! " + msgOutro.Message)
+		module.sendToLink(rsAddress, "respOK", strconv.Itoa(module.id))
 	} else {
 		module.waiting[rid] = true
 		// if   (st == inMX) OR  (st == wantMX AND [rts,rid]> [reqTs,id])
