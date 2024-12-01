@@ -187,6 +187,7 @@ func (module *DIMEX_Module) handleUponDeliverReqEntry(msgOutro PP2PLink.PP2PLink
 	// outro processo quer entrar na SC
 	//quando pl entregar msg [ pl, Deliver | q, [ reqEntry, rid, rts ]
 
+
 	reqTs := module.reqTs
 	id := module.id
 	rts, rid := stringToReqTsAndId(msgOutro.Message)
